@@ -1,0 +1,29 @@
+version: "3.7"
+services:
+  splunk:
+    image: splunk/splunk:latest
+    container_name: splunk
+    environment:
+      - SPLUNK_START_ARGS=--accept-license
+      - SPLUNK_PASSWORD=Splunk1234
+      # Currently not working...
+      # - JAVA_VERSION=openjdk:8
+      - DEBUG=true
+    ports:
+      - 8000:8000
+      - 8089:8089
+    networks:
+      - splunk-network
+    # Optional persistent storage
+    volumes:
+      - splunk-var:/opt/splunk/var
+      - splunk-etc:/opt/splunk/etc 
+
+networks:
+  splunk-network:
+    driver: bridge
+
+# Optional persistent storage
+volumes:
+  splunk-var:
+  splunk-etc:
